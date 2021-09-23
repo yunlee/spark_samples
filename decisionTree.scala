@@ -56,3 +56,4 @@ val model = pipeline.fit(trainingData)
 val treeModel = model.stages(2).asInstanceOf[DecisionTreeClassificationModel]
 
 println(s"Learned classification tree model:\n ${treeModel.toDebugString}")
+println(treeModel.featureImportances)
