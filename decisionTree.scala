@@ -62,3 +62,10 @@ val predictions = model.transform(testData)
 
 // Select example rows to display.
 predictions.select("predictedLabel", "label", "features").show(5)
+
+
+val dt2 = new DecisionTreeClassifier().setLabelCol("indexedLabel").setFeaturesCol("features")
+val pipeline2 = new Pipeline().setStages(Array(labelIndexer, dt2, labelConverter))
+val model2 = pipeline2.fit(trainingData)
+val treeModel2 = model2.stages(1).asInstanceOf[DecisionTreeClassificationModel]
+
