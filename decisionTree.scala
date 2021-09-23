@@ -9,7 +9,7 @@ import org.apache.spark.ml.feature.{IndexToString, StringIndexer, VectorIndexer}
 
 val df = spark.read.format("csv").option("inferSchema", "true").option("header", "true").load("/adhoc/analysis/yl/tosimuPub/2020-06-16-11/")
 
-val df2 = df.select("verified", "sid", "os", "browser", "dc", "adsize")
+val df2 = df.select("verified", "sid", "os", "browser", "dc")
 
 
 
@@ -23,9 +23,9 @@ val inds = features_indexed.map { colName =>
 }
 
 val pipeline2 = new Pipeline().setStages(inds).fit(df2)
-val df3 = pipeline2.transform(df2).select("verified","sidI","osI", "browserI", "dcI", "adsize")
+val df3 = pipeline2.transform(df2).select("verified","sidI","osI", "browserI", "dcI")
 
-val features_indexed2 = Array("sidI","osI", "browserI", "dcI","adsize")
+val features_indexed2 = Array("sidI","osI", "browserI", "dcI")
 
 val assembler = new VectorAssembler().setInputCols(features_indexed2).setOutputCol("features")
 
